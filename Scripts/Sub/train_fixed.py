@@ -1664,15 +1664,7 @@ class StratifiedPosNegBatchSampler(data.Sampler):
 #     Q8ABC0
 #     ...
 #
-# In this project, such a list can be generated from the AptaDB table
-# `Tables/AptaDB/aptamer_target_proteins_human_2024-08-01.tsv` by taking the
-# first column (TargetID), which is a UniProt ID. For example, from the
-# project root:
-#
-#     cat Tables/AptaDB/aptamer_target_proteins_human_2024-08-01.tsv | cut -f1 > aptamer_uniprot_ids.txt
-#
-# You can then pass this file to the script via:
-#     --aptamer_list_file aptamer_uniprot_ids.txt
+# Pass that file via --aptamer_list_file /path/to/positives.txt.
 
 def load_positive_proteins(path):
     """Load UniProt IDs with known high-affinity aptamers.

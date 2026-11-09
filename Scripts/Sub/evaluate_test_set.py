@@ -9,10 +9,10 @@ then binary labels are obtained with threshold 0.5. Reported test metrics
 
 Usage:
     python evaluate_test_set.py \
-        --model_dir Model/Hyperparameter_Sweep/.../Sampling_strat_no_repl_stop/ \
-        --test_fasta_file Fasta/AFDB_split/AFDB_concatenated_test.fasta.gz \
-        --aptamer_list_file Lists/aptamer_target_proteins_human_2024-08-01.txt \
-        --output_file Results/test_evaluation_<config>.tsv
+        --model_dir /path/to/checkpoints \
+        --test_fasta_file /path/to/test.fasta.gz \
+        --aptamer_list_file /path/to/positives.txt \
+        --output_file /path/to/metrics.tsv
 """
 
 import sys

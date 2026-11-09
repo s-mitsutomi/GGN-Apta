@@ -25,29 +25,6 @@ from sklearn.model_selection import StratifiedKFold
 N_FOLDS = 5
 KFOLD_RANDOM_STATE = 42
 
-DEFAULT_TRAIN_FASTA = (
-    "Fasta/AFDB_split_by_homology/seed42/"
-    "AFDB_concatenated_train80pct_homology_id30.fasta.gz"
-)
-DEFAULT_TEST_FASTA = (
-    "Fasta/AFDB_split_by_homology/seed42/"
-    "AFDB_concatenated_test20pct_homology_id30.fasta.gz"
-)
-DEFAULT_APTAMER_LIST = "Lists/aptamer_target_proteins_human_2024-08-01.txt"
-DEFAULT_CLUSTER_MEMBERS = "Tables/Homology_split/mmseqs_id30/cluster_members.tsv"
-DEFAULT_PROTEIN_MEMBERSHIP = (
-    "Tables/Homology_split/seed42/protein_split_membership_id30.tsv"
-)
-DEFAULT_MANIFEST = "Tables/Homology_split/uniprot_full_sequence_manifest.tsv"
-DEFAULT_CURRENT_MEMBERSHIP = (
-    "Results/Protein_predictions/Homology_id30/fold_membership_seed42/"
-    "train80_fold_membership.tsv"
-)
-DEFAULT_OUTPUT_DIR = (
-    "Results/Protein_predictions/Homology_id30/"
-    "fold_membership_seed42_grouped_cluster"
-)
-
 LONG_MEMBERSHIP_FIELDS = [
     "protein_id",
     "uniprot",

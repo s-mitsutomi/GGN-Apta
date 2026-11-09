@@ -25,10 +25,10 @@ so loading and inference are consistent with the trained checkpoints.
 
 Usage:
     python export_protein_predictions.py \\
-        --model_dir Model/Hyperparameter_Sweep/.../Sampling_strat_no_repl_stop/ \\
-        --fasta_file Fasta/.../sequences.fasta.gz \\
-        --aptamer_list_file Lists/aptamer_target_proteins_human_2024-08-01.txt \\
-        --output_predictions_tsv Results/protein_predictions.tsv
+        --model_dir /path/to/checkpoints \\
+        --fasta_file /path/to/proteins.fasta.gz \\
+        --aptamer_list_file /path/to/positives.txt \\
+        --output_predictions_tsv /path/to/predictions.tsv
 """
 
 import sys
