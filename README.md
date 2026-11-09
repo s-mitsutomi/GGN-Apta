@@ -1,4 +1,6 @@
-# GGN-Apta
+<h1 align="center">
+  <img src="docs/ggn-apta-logo.png" alt="GGN-Apta" width="280">
+</h1>
 
 ## Overview
 
