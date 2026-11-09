@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ggn-apta"
+version = "0.1.0"
+description = "Score how likely a protein is to be an aptamer target"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+[project.scripts]
+ggn-apta = "ggn_apta.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ggn_apta*"]

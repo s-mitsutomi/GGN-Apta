@@ -1,14 +1,34 @@
-#!/usr/bin/env python3
-"""Print the released-model pos_weight: auto negatives/positives times PW_MODE (default 0.5)."""
+"""Released-model positive weight: auto negatives/positives times pw_mode (default 0.5)."""
 
 from __future__ import annotations
 
-import argparse
 import sys
 from pathlib import Path
 
 
-def main() -> int:
+class CliError(Exception):
+    """User-facing failure. The message is printed as-is."""
+
+
+def require_positive_pw_mode(pw_mode: float) -> None:
+    if pw_mode <= 0:
+        raise CliError(f"ERROR: --pw-mode must be positive (got {pw_mode})")
+
+
+def positive_weight_text(
+    train_fasta_file: str,
+    aptamer_list_file: str,
+    pw_mode: float,
+) -> str:
+    """Return the pos_weight text the trainer receives, matching the old script's repr."""
+    require_positive_pw_mode(pw_mode)
+    train_path = Path(train_fasta_file)
+    list_path = Path(aptamer_list_file)
+    if not train_path.is_file():
+        raise CliError(f"ERROR: --train-fasta is missing: {train_path}")
+    if not list_path.is_file():
+        raise CliError(f"ERROR: --aptamer-list is missing: {list_path}")
+
     root = Path(__file__).resolve().parents[1]
     sys.path.insert(0, str(root))
     from Scripts.Sub.train_fixed_lr_scheduler_no_ddp_fsdp_allow_sched_factor_1_augment_eps_edge_dropout import (  # noqa: E402
@@ -17,24 +37,6 @@ def main() -> int:
         extract_dataset,
         load_positive_proteins,
     )
-
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--train_fasta_file", required=True)
-    parser.add_argument("--aptamer_list_file", required=True)
-    parser.add_argument("--pw_mode", type=float, default=0.5)
-    args = parser.parse_args()
-
-    train_path = Path(args.train_fasta_file)
-    list_path = Path(args.aptamer_list_file)
-    if not train_path.is_file():
-        print(f"ERROR: train FASTA not found: {train_path}", file=sys.stderr)
-        return 1
-    if not list_path.is_file():
-        print(f"ERROR: aptamer list not found: {list_path}", file=sys.stderr)
-        return 1
-    if args.pw_mode <= 0:
-        print(f"ERROR: pw_mode must be positive (got {args.pw_mode})", file=sys.stderr)
-        return 1
 
     positive_set = load_positive_proteins(str(list_path))
     train_fasta_data = extract_dataset(str(train_path))
@@ -55,9 +57,4 @@ def main() -> int:
         else:
             num_negatives += 1
     auto_weight = 1.0 if num_positives <= 0 else num_negatives / num_positives
-    print(repr(float(auto_weight) * float(args.pw_mode)))
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
+    return repr(float(auto_weight) * float(pw_mode))
