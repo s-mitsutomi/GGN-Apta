@@ -1,0 +1,17 @@
+name: ggn-apta
+channels:
+  - conda-forge
+  - pyg
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.11
+  - pip
+  - biopython=1.86
+  - scikit-learn=1.7.2
+  - numpy=2.3.3
+  - ml-collections=1.1.0
+  - pip:
+      - torch==2.9.1
+      - torch-geometric==2.7.0
+      - torch-scatter==2.1.2
